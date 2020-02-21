@@ -40,7 +40,7 @@ class AlbumListAdapter(listener: AlbumItemClickListener) : RecyclerView.Adapter<
 
     override fun onBindViewHolder(holder: AlbumHolder, position: Int) {
         val album = itemList[position]
-        loadImage(album.artworkUrl60, holder.label)
+        loadImage(album.artworkUrl100, holder.label)
         holder.artist.text = album.artistName
         holder.albumName.text = album.collectionName
 

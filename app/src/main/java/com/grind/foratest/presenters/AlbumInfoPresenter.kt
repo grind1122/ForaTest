@@ -28,6 +28,9 @@ class AlbumInfoPresenter(view: IAlbumInfoView) : IAlbumInfoPresenter {
                         if (info.wrapperType == "collection") {
                             album = info.toAlbum()
                         } else if(info.wrapperType == "track" && info.kind == "song"){
+                            Log.e("Track", "${info.trackName}")
+                            Log.e("Track", "${info.trackViewUrl}")
+                            Log.e("Track", "${info.previewUrl}")
                             songs.add(info.toSong())
                         }
                     }

@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.grind.foratest.models.Info
@@ -15,6 +17,7 @@ import com.grind.foratest.presenters.AlbumListPresenter
 import com.grind.foratest.R
 import com.grind.foratest.views.IAlbumListView
 import com.grind.foratest.adapters.AlbumListAdapter
+import com.grind.foratest.utils.ItemOffsetDecoration
 import com.jakewharton.rxbinding2.widget.RxTextView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -52,12 +55,15 @@ class SearchFragment : Fragment(), IAlbumListView {
                     ?.replace(R.id.main_container,
                         AlbumInfoFragment().apply {
                         arguments = bundle })
+                    ?.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                     ?.addToBackStack(this.javaClass.simpleName)
                     ?.commit()
             }
         })
         rv.adapter = adapter
-        rv.layoutManager = LinearLayoutManager(context)
+        rv.layoutManager = GridLayoutManager(context,2, GridLayoutManager.VERTICAL, false)
+        rv.addItemDecoration((ItemOffsetDecoration(context!!, R.dimen.grid_item_margin)))
+
         presenter.getAlbumsList("katy+perry")
 
         val searchSubscribe = RxTextView.afterTextChangeEvents(etSearch)
