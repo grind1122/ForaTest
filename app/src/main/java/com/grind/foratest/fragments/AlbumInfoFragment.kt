@@ -56,13 +56,24 @@ class AlbumInfoFragment : Fragment(), IAlbumInfoView {
             artistName.text = album.artistName
             genreAndYear.text = "${album.primaryGenreName} | ${album.releaseDate.substring(0..3)}"
 
+            //check single disc in collection or not
+            var singleDisc = true
+            for (song in songs) {
+                if (song.discNumber > 1) {
+                    singleDisc = false
+                    break
+                }
+            }
+
             for (i in 0..songs.size) {
                 val currSong = songs[i]
                 songContainer.addView(
                     createSongItem(
+                        currSong.discNumber,
                         currSong.trackNumber,
                         currSong.trackName,
-                        currSong.trackTimeMillis / 1000
+                        currSong.trackTimeMillis / 1000,
+                        singleDisc
                     )
                 )
             }
@@ -72,7 +83,13 @@ class AlbumInfoFragment : Fragment(), IAlbumInfoView {
     }
 
     //inflate view for song and set fields
-    private fun createSongItem(songNumber: Int, songName: String, seconds: Int): View {
+    private fun createSongItem(
+        discNumber: Int,
+        songNumber: Int,
+        songName: String,
+        seconds: Int,
+        singleDisc: Boolean
+    ): View {
         val v = View.inflate(context, R.layout.item_song, null).apply {
             layoutParams = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
@@ -82,7 +99,11 @@ class AlbumInfoFragment : Fragment(), IAlbumInfoView {
         val number = v.findViewById<TextView>(R.id.tv_track_number)
         val name = v.findViewById<TextView>(R.id.tv_track_name)
         val time = v.findViewById<TextView>(R.id.tv_track_time)
-        number.text = songNumber.toString()
+        if (singleDisc) {
+            number.text = "$songNumber"
+        } else {
+            number.text = "$discNumber.$songNumber"
+        }
         name.text = songName
         time.text = String.format("%d:%02d", seconds / 60, seconds % 60)
 
