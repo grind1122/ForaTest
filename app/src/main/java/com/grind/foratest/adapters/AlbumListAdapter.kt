@@ -9,16 +9,18 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.grind.foratest.models.Info
 import com.grind.foratest.R
+import com.grind.foratest.customviews.SquareImageView
 import com.squareup.picasso.Picasso
 
-class AlbumListAdapter(listener: AlbumItemClickListener) : RecyclerView.Adapter<AlbumListAdapter.AlbumHolder>() {
+class AlbumListAdapter(listener: AlbumItemClickListener) :
+    RecyclerView.Adapter<AlbumListAdapter.AlbumHolder>() {
 
-    var itemList: MutableList<Info> = mutableListOf()
-    val listener = listener
+    private var itemList: MutableList<Info> = mutableListOf()
+    private val listener = listener
 
 
     class AlbumHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val label: ImageView = itemView.findViewById(R.id.imv_label)
+        val label: SquareImageView = itemView.findViewById(R.id.imv_label)
         val artist: TextView = itemView.findViewById(R.id.tv_artist)
         val albumName: TextView = itemView.findViewById(R.id.tv_album_name)
     }
@@ -43,31 +45,34 @@ class AlbumListAdapter(listener: AlbumItemClickListener) : RecyclerView.Adapter<
         loadImage(album.artworkUrl100, holder.label)
         holder.artist.text = album.artistName
         holder.albumName.text = album.collectionName
-
-        holder.itemView.setOnClickListener{listener.itemClick(album.collectionId)}
-
+        holder.itemView.setOnClickListener { listener.itemClick(album.collectionId) }
     }
 
-    fun addItems(items: List<Info>){
+    fun addItems(items: List<Info>) {
         val startPosition = itemList.size - 1
         itemList.addAll(items)
-        notifyItemRangeInserted(startPosition,items.size)
+        notifyItemRangeInserted(startPosition, items.size)
 
     }
 
-    fun setItems(items: List<Info>){
+    fun clearItems() {
+        itemList.clear()
+        notifyDataSetChanged()
+    }
+
+    fun setItems(items: List<Info>) {
         itemList = items.toMutableList()
         notifyDataSetChanged()
     }
 
-    private fun loadImage(url: String, container: ImageView){
+    private fun loadImage(url: String, container: ImageView) {
         Picasso.get().load(Uri.parse(url))
             .fit()
             .centerCrop()
             .into(container)
     }
 
-    interface AlbumItemClickListener{
+    interface AlbumItemClickListener {
         fun itemClick(albumId: Int)
     }
 

@@ -10,7 +10,8 @@ interface ITunesApi {
 
     @GET("search")
     fun searchAlbum(@Query("term") searchSequence: String,
-                    @Query("entity") entity: String) : Observable<SearchResponse>
+                    @Query("entity") entity: String,
+                    @Query("limit") limit:Int) : Observable<SearchResponse>
 
     @GET("lookup")
     fun getAlbumInfo(@Query("id") albumId: Int,

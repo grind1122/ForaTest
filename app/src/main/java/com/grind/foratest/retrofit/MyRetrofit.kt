@@ -6,14 +6,14 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class MyRetrofit {
 
-    companion object{
+    companion object {
         private val retrofit = Retrofit.Builder()
             .baseUrl("https://itunes.apple.com/")
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
 
-        fun getInstance(): Retrofit{
+        fun getInstance(): Retrofit {
             return retrofit
         }
     }

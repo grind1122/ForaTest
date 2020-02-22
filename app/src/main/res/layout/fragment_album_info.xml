@@ -1,40 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@android:color/black">
+    android:layout_height="match_parent"
+    android:background="@android:color/black"
+    android:orientation="vertical">
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="?attr/actionBarSize"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:orientation="horizontal">
 
-        <LinearLayout
+        <ImageView
+            android:id="@+id/imv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_arrow_back" />
+
+        <TextView
+            android:id="@+id/ab_title"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:orientation="horizontal">
-            <ImageView
-                android:id="@+id/imv_back"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:src="@drawable/ic_arrow_back"/>
-            <TextView
-                android:id="@+id/ab_title"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textColor="@color/colorAccent"
-                android:layout_marginLeft="8dp"
-                android:text="Library"
-                android:textSize="18sp"
-                android:gravity="center_vertical|start"
-                />
-        </LinearLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/grayLine"/>
+            android:layout_height="match_parent"
+            android:layout_marginLeft="8dp"
+            android:gravity="center_vertical|start"
+            android:text="@string/library"
+            android:textColor="@color/colorAccent"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/grayLine" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -42,35 +46,41 @@
             android:padding="16dp">
 
 
-
-            <ImageView
-                android:id="@+id/imv_label"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_label_container"
                 android:layout_width="0dp"
                 android:layout_height="150dp"
+                app:cardCornerRadius="6dp"
                 app:layout_constraintDimensionRatio="1:1"
                 app:layout_constraintHorizontal_bias="0"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/imv_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </androidx.cardview.widget.CardView>
 
             <TextView
                 android:id="@+id/tv_album_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
-                android:textSize="16sp"
                 android:textColor="@color/textColor"
-                app:layout_constraintLeft_toRightOf="@id/imv_label"
+                android:textSize="16sp"
+                app:layout_constraintLeft_toRightOf="@id/cv_label_container"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="@id/imv_label"/>
+                app:layout_constraintTop_toTopOf="@id/cv_label_container" />
 
             <TextView
                 android:id="@+id/tv_artist"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:textSize="14sp"
                 android:textColor="@color/colorAccent"
+                android:textSize="14sp"
                 app:layout_constraintLeft_toLeftOf="@id/tv_album_name"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_album_name" />
@@ -80,22 +90,10 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:textSize="13sp"
                 android:textColor="@color/textColorAlpha"
+                android:textSize="13sp"
                 app:layout_constraintLeft_toLeftOf="@id/tv_artist"
                 app:layout_constraintTop_toBottomOf="@id/tv_artist" />
-
-
-<!--            <TextView-->
-<!--                android:id="@+id/tv_song_count"-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginTop="16dp"-->
-<!--                android:gravity="center"-->
-<!--                android:textSize="18sp"-->
-<!--                app:layout_constraintLeft_toLeftOf="parent"-->
-<!--                app:layout_constraintRight_toRightOf="parent"-->
-<!--                app:layout_constraintTop_toBottomOf="@id/tv_release_year" />-->
 
             <LinearLayout
                 android:id="@+id/ll_song_container"
@@ -105,10 +103,11 @@
                 android:orientation="vertical"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/imv_label" />
+                app:layout_constraintTop_toBottomOf="@id/cv_label_container" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 
-</androidx.core.widget.NestedScrollView>
+</LinearLayout>
+

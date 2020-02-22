@@ -24,13 +24,11 @@ class AlbumInfoPresenter(view: IAlbumInfoView) : IAlbumInfoPresenter {
                 {
                     var album: Album? = null
                     val songs = mutableListOf<Song>()
-                    it.infoList.forEach {info ->
+                    it.infoList.forEach { info ->
                         if (info.wrapperType == "collection") {
                             album = info.toAlbum()
-                        } else if(info.wrapperType == "track" && info.kind == "song"){
+                        } else if (info.wrapperType == "track" && info.kind == "song") {
                             Log.e("Track", "${info.trackName}")
-                            Log.e("Track", "${info.trackViewUrl}")
-                            Log.e("Track", "${info.previewUrl}")
                             songs.add(info.toSong())
                         }
                     }

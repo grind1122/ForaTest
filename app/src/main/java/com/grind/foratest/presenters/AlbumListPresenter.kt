@@ -16,17 +16,13 @@ class AlbumListPresenter(view: IAlbumListView) : IAlbumListPresenter {
     private val api = MyRetrofit.getInstance().create(ITunesApi::class.java)
 
     override fun getAlbumsList(searchSequence: String) {
-        var counter = 0
-        val disposable = api.searchAlbum(searchSequence, "album")
+        val disposable = api.searchAlbum(searchSequence, "album", 200)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({response ->
-                view.showAlbumList(response.infoList)
-                response.infoList.forEach {
-                    view.info("${counter++}) ${it.artistName} - ${it.collectionName} (${it.wrapperType} id - ${it.collectionId})")
-
-                }},
-                {Log.e("Presenter", it.message?: "Some Error")})
+            .subscribe({ response ->
+                view.showAlbumList(response.infoList.sortedBy { it.collectionName })
+            },
+                { Log.e("Presenter", it.message ?: "Some Error") })
         cd.add(disposable)
 
     }

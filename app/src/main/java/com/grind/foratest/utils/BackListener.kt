@@ -4,7 +4,7 @@ import android.view.View
 import androidx.fragment.app.FragmentManager
 
 class BackListener(fm: FragmentManager): View.OnClickListener {
-    val fm = fm
+    private val fm = fm
     override fun onClick(v: View?) {
         fm.popBackStack()
     }

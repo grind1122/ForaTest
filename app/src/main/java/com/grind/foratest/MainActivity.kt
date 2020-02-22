@@ -20,9 +20,11 @@ class MainActivity : AppCompatActivity(){
 
     override fun onStart() {
         super.onStart()
-        supportFragmentManager.beginTransaction()
-            .add(R.id.main_container, SearchFragment())
-            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-            .commit()
+        if(supportFragmentManager.fragments.size == 0) {
+            supportFragmentManager.beginTransaction()
+                .add(R.id.main_container, SearchFragment())
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                .commit()
+        }
     }
 }

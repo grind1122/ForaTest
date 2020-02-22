@@ -3,8 +3,8 @@
     <color name="colorPrimary">@android:color/black</color>
     <color name="colorPrimaryDark">@android:color/black</color>
     <color name="colorAccent">#E33B59</color>
+    <color name="colorAccentAlpha">#CCE33B59</color>
     <color name="textColor">#FFFFFF</color>
     <color name="textColorAlpha">#99FFFFFF</color>
     <color name="grayLine">#33FFFFFF</color>
-
 </resources>
